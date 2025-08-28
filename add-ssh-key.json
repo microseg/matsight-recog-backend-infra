@@ -1,0 +1,9 @@
+{
+  "commands": [
+    "mkdir -p /home/ec2-user/.ssh",
+    "echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIh6T+ivEVKhO8IQm539ZNlx7/1sXmpRVddYckWn5Ykn zhangxuanzhi10419@gmail.com' >> /home/ec2-user/.ssh/authorized_keys",
+    "chmod 700 /home/ec2-user/.ssh",
+    "chmod 600 /home/ec2-user/.ssh/authorized_keys",
+    "chown -R ec2-user:ec2-user /home/ec2-user/.ssh"
+  ]
+}

@@ -8,7 +8,21 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "deploy": "cdk deploy",
+    "destroy": "cdk destroy",
+    "connect-dev": "node scripts/connect-dev.js",
+    "connect-dev-ssh": "node scripts/connect-dev.js ssh",
+    "connect-dev-ssm": "node scripts/connect-dev.js ssm",
+    "update-ssh": "node scripts/update-ssh-access.js",
+    "add-ssh": "node scripts/update-ssh-access.js add",
+    "remove-ssh": "node scripts/update-ssh-access.js remove",
+    "user-create": "node scripts/user-manager.js create",
+    "user-list": "node scripts/user-manager.js list",
+    "user-delete": "node scripts/user-manager.js delete",
+    "connect-user": "node scripts/connect-user.js",
+    "users": "node scripts/connect-user.js list",
+    "demo": "node scripts/demo-users.js"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
@@ -22,6 +36,9 @@
   },
   "dependencies": {
     "aws-cdk-lib": "^2.211.0",
-    "constructs": "^10.4.2"
+    "constructs": "^10.4.2",
+    "@aws-sdk/client-ec2": "^3.0.0",
+    "@aws-sdk/client-sts": "^3.0.0",
+    "@aws-sdk/client-iam": "^3.0.0"
   }
 }
