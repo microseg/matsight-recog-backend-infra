@@ -1,8 +1,26 @@
-*.js
-!jest.config.js
-*.d.ts
-node_modules
+# Build artifacts and dependencies
+node_modules/
 
-# CDK asset staging directory
-.cdk.staging
-cdk.out
+# CDK outputs
+.cdk.staging/
+cdk.out/
+
+# TypeScript compiled outputs (keep source TS and scripts/*.js tracked)
+bin/**/*.js
+bin/**/*.d.ts
+lib/**/*.js
+lib/**/*.d.ts
+**/*.js.map
+
+# Keep explicit JS files tracked if needed
+!jest.config.js
+
+# OS/Editor junk
+.DS_Store
+Thumbs.db
+
+# Local tools/archives
+SessionManagerPlugin.zip
+
+# Local user data (environment-specific)
+data/users.json
