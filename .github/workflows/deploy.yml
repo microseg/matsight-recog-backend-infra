@@ -1,0 +1,58 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+        
+    - name: Start CodePipeline
+      run: |
+        aws codepipeline start-pipeline-execution \
+          --name MatsightDeployPipeline
+        
+    - name: Wait for deployment
+      run: |
+        echo "Waiting for deployment to complete..."
+        sleep 30
+        
+    - name: Check deployment status
+      run: |
+        # Get the latest pipeline execution
+        EXECUTION_ID=$(aws codepipeline list-pipeline-executions \
+          --pipeline-name MatsightDeployPipeline \
+          --query 'pipelineExecutionSummaries[0].pipelineExecutionId' \
+          --output text)
+          
+        echo "Latest execution ID: $EXECUTION_ID"
+        
+        # Get execution status
+        STATUS=$(aws codepipeline get-pipeline-execution \
+          --pipeline-name MatsightDeployPipeline \
+          --pipeline-execution-id $EXECUTION_ID \
+          --query 'pipelineExecution.status' \
+          --output text)
+          
+        echo "Pipeline status: $STATUS"
+        
+        if [ "$STATUS" != "Succeeded" ]; then
+          echo "❌ Pipeline failed with status: $STATUS"
+          exit 1
+        else
+          echo "✅ Pipeline completed successfully!"
+        fi

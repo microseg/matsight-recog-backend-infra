@@ -22,7 +22,11 @@
     "user-delete": "node scripts/user-manager.js delete",
     "connect-user": "node scripts/connect-user.js",
     "users": "node scripts/connect-user.js list",
-    "demo": "node scripts/demo-users.js"
+    "demo": "node scripts/demo-users.js",
+    "deploy-prod": "node scripts/deploy-to-prod.js",
+    "pipeline-status": "aws codepipeline get-pipeline-state --name MatsightDeployPipeline",
+    "pipeline-start": "aws codepipeline start-pipeline-execution --name MatsightDeployPipeline",
+    "pipeline-list": "aws codepipeline list-pipeline-executions --pipeline-name MatsightDeployPipeline"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
